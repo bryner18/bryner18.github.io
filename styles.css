@@ -364,19 +364,63 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   padding: 8px 14px;
 }
 
-/* ascii chart */
-.ascii-chart {
+/* live price chart */
+.chart-panel { padding: 6px; }
+.chart-stats {
+  font-family: "Courier New", monospace;
+  font-size: 12px;
   color: #0f0;
   background: #000;
   border: 2px inset #808080;
-  padding: 6px;
-  font-size: 12px;
-  line-height: 1.1;
-  margin: 0;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  white-space: nowrap;
   overflow-x: auto;
 }
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border: 2px inset #808080;
+  background: #000;
+}
+.chart-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
 
-.testimonials p { margin: 6px 0; font-size: 13px; }
+/* testimonial live feed */
+.feed-status {
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  color: #060;
+  margin-bottom: 4px;
+}
+.feed-status .blink { color: #f00; }
+#testimonial-feed { overflow: hidden; }
+.testimonial {
+  font-family: "Comic Sans MS", cursive;
+  font-size: 13px;
+  margin: 0 0 2px;
+  padding: 5px 8px;
+  background: #fff;
+  border: 1px solid #808080;
+  border-left: 4px solid #000080;
+  overflow: hidden;
+  max-height: 90px;
+  transition: max-height .45s ease, opacity .45s ease, transform .45s ease;
+}
+.testimonial:nth-child(even) { background: #f0f0ff; }
+.t-sig { color: #000080; font-size: 11px; font-weight: bold; }
+.t-enter { animation: t-slide-in .5s ease-out; }
+@keyframes t-slide-in {
+  from { max-height: 0; opacity: 0; transform: translateX(-24px); padding-top: 0; padding-bottom: 0; }
+  to   { max-height: 90px; opacity: 1; transform: none; }
+}
+.t-exit { max-height: 0 !important; opacity: 0; transform: translateX(24px); padding-top: 0; padding-bottom: 0; }
 
 /* dancing zone */
 .dancing-zone {
@@ -452,6 +496,13 @@ footer {
   font-size: 11px;
   font-family: "Times New Roman", serif;
 }
+.footer-note {
+  text-align: center;
+  font-size: 9px;
+  color: #555;
+  padding: 2px;
+  font-family: "Courier New", monospace;
+}
 
 /* close all */
 #close-all-btn {
@@ -500,12 +551,61 @@ footer {
 .login-fields label { display: block; font-size: 11px; margin: 4px 0 1px; }
 .login-disclaimer { font-size: 9px; color: #555; margin-top: 6px; }
 
-/* popup entrance/behaviors */
-.popup-slide-in { animation: popup-slide .3s ease-out; }
-@keyframes popup-slide { from { transform: translateY(-60px); opacity: 0; } }
+/* popup entrance animations (picked at random per spawn) */
+.pa-fade    { animation: pa-fade .4s ease-out; }
+@keyframes pa-fade { from { opacity: 0; } }
+.pa-zoom    { animation: pa-zoom .35s cubic-bezier(.2,1.4,.4,1); }
+@keyframes pa-zoom { from { transform: scale(.1); opacity: 0; } }
+.pa-slide-l { animation: pa-slide-l .35s ease-out; }
+@keyframes pa-slide-l { from { transform: translateX(-110vw); } }
+.pa-slide-r { animation: pa-slide-r .35s ease-out; }
+@keyframes pa-slide-r { from { transform: translateX(110vw); } }
+.pa-slide-t { animation: pa-slide-t .35s ease-out; }
+@keyframes pa-slide-t { from { transform: translateY(-110vh); } }
+.pa-slide-b { animation: pa-slide-b .35s ease-out; }
+@keyframes pa-slide-b { from { transform: translateY(110vh); } }
+.pa-bounce  { animation: pa-bounce .6s cubic-bezier(.28,.84,.42,1); }
+@keyframes pa-bounce {
+  0%   { transform: translateY(-80vh); }
+  55%  { transform: translateY(0); }
+  70%  { transform: translateY(-28px); }
+  85%  { transform: translateY(0); }
+  93%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+.pa-spin    { animation: pa-spin .45s ease-out; }
+@keyframes pa-spin { from { transform: rotate(-25deg) scale(.4); opacity: 0; } }
+
+/* popup idle behaviors */
 .popup-bounce { animation: popup-bounce 1.4s ease-in-out infinite; }
 @keyframes popup-bounce { 50% { transform: translateY(-16px); } }
 .popup-shake { animation: shake .3s linear infinite; }
+
+/* win95 progress bar */
+.progress-label { margin-bottom: 6px; }
+.progress-track {
+  height: 16px;
+  border: 2px inset #808080;
+  background: #fff;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: repeating-linear-gradient(90deg,
+    #000080 0 10px, #fff 10px 12px);
+  transition: width .25s steps(4);
+}
+.progress-pct { text-align: right; margin-top: 2px; }
+
+/* checkbox / radio option dialogs */
+.opt-list { margin-top: 6px; }
+.opt-row {
+  display: block;
+  font-size: 12px;
+  margin: 3px 0;
+  cursor: pointer;
+}
+.opt-row input { margin-right: 4px; }
 
 /* ============================================================
    EFFECT SPRITES (pooled by effects.js)
