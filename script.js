@@ -230,7 +230,7 @@
     // horizontal gridlines + right-side price labels
     cctx.strokeStyle = "#003300";
     cctx.fillStyle = "#00aa00";
-    cctx.font = "10px 'Courier New', monospace";
+    cctx.font = "10px 'Courier Prime', 'Courier New', monospace";
     cctx.textAlign = "left";
     cctx.textBaseline = "middle";
     for (let g = 0; g <= 5; g++) {
@@ -321,7 +321,7 @@
       cctx.beginPath(); cctx.arc(cx, py, 3, 0, 7); cctx.fill();
       // readout box
       const label = fmtDate(dateAt(i)) + "  " + fmtPrice(prices[i]) + "  VOL " + Math.round(volumes[i]) + "K";
-      cctx.font = "11px 'Courier New', monospace";
+      cctx.font = "11px 'Courier Prime', 'Courier New', monospace";
       const tw = cctx.measureText(label).width + 12;
       const bx = Math.min(Math.max(cx - tw / 2, L), L + pw - tw);
       const by = mouse.y < T + 40 ? mouse.y + 14 : mouse.y - 30;

@@ -3,23 +3,80 @@
    Chaotic on purpose. Organized under the hood.
    ============================================================ */
 
+/* ============================================================
+   EMBEDDED FONTS — bundled locally so desktop, Android and iOS
+   render identical typography. Open-license lookalikes:
+   Comic Neue (Comic Sans MS), Anton (Impact),
+   Courier Prime (Courier New), Tinos (Times New Roman),
+   Pixelated MS Sans Serif from 98.css (MIT).
+   ============================================================ */
+@font-face {
+  font-family: "Comic Neue";
+  src: url("assets/fonts/comic-neue-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Comic Neue";
+  src: url("assets/fonts/comic-neue-700.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Anton";
+  src: url("assets/fonts/anton-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Courier Prime";
+  src: url("assets/fonts/courier-prime-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Courier Prime";
+  src: url("assets/fonts/courier-prime-700.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Tinos";
+  src: url("assets/fonts/tinos-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Pixelated MS Sans Serif";
+  src: url("assets/fonts/ms_sans_serif.woff2") format("woff2"),
+       url("assets/fonts/ms_sans_serif.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Pixelated MS Sans Serif";
+  src: url("assets/fonts/ms_sans_serif_bold.woff2") format("woff2"),
+       url("assets/fonts/ms_sans_serif_bold.woff") format("woff");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
 /* ---------- base ---------- */
 * { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Neue", "Comic Sans MS", cursive;
   color: #fff;
   background: #000;
   overflow-x: hidden;
   cursor: crosshair;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.comic  { font-family: "Comic Sans MS", cursive; }
-.impact { font-family: Impact, "Arial Black", sans-serif; letter-spacing: 1px; }
-.times  { font-family: "Times New Roman", serif; }
-pre, .lcd, .ascii-chart, .matrix-text { font-family: "Courier New", monospace; }
+.comic  { font-family: "Comic Neue", "Comic Sans MS", cursive; }
+.impact { font-family: "Anton", Impact, "Arial Black", sans-serif; letter-spacing: 1px; }
+.times  { font-family: "Tinos", "Times New Roman", serif; }
+pre, .lcd, .ascii-chart, .matrix-text { font-family: "Courier Prime", "Courier New", monospace; }
+
+/* the Win95 pixel font must stay crisp, not smoothed */
+.win95-btn, .win-titlebar, .panel-title, .badge88, .win95-popup {
+  -webkit-font-smoothing: none;
+}
 
 .big-text  { font-size: clamp(15px, 4vw, 22px); }
 .tiny-text { font-size: 10px; }
@@ -167,7 +224,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 
 /* windows 95 button */
 .win95-btn {
-  font-family: "MS Sans Serif", "Tahoma", sans-serif;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
   font-size: 12px;
   color: #000;
   background: #c0c0c0;
@@ -190,7 +247,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   align-items: center;
   background: linear-gradient(90deg, #000080, #1084d0);
   color: #fff;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
   font-size: 12px;
   font-weight: bold;
   padding: 3px 6px;
@@ -219,7 +276,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   top: 0;
   z-index: 500;
   padding: 2px 0;
-  font-family: "Courier New", monospace;
+  font-family: "Courier Prime", "Courier New", monospace;
   font-weight: bold;
   font-size: clamp(11px, 3vw, 14px);
   color: #0f0;
@@ -258,14 +315,14 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 #site-logo { margin: 0; font-size: clamp(22px, 6vw, 64px); cursor: pointer; overflow-wrap: break-word; }
 
 .welcome-flash {
-  font-family: Impact, sans-serif;
+  font-family: "Anton", Impact, sans-serif;
   font-size: clamp(18px, 4vw, 36px);
   color: #ff0;
   text-shadow: 2px 2px 0 red, 0 0 20px #ff0;
 }
 
 .subtitle { font-size: clamp(11px, 3vw, 14px); color: #0ff; text-shadow: 1px 1px 0 #000; padding: 0 6px; }
-.parody-note { font-size: 10px; color: #aaa; font-family: "Courier New", monospace; }
+.parody-note { font-size: 10px; color: #aaa; font-family: "Courier Prime", "Courier New", monospace; }
 
 .header-marquee {
   color: #ff0;
@@ -330,7 +387,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 .panel-title {
   background: linear-gradient(90deg, #000080, #1084d0);
   color: #fff;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
   font-size: 11px;
   font-weight: bold;
   padding: 3px 6px;
@@ -341,7 +398,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 .counter-box { margin: 6px; padding: 4px; text-align: center; cursor: pointer; }
 .counter-label { font-size: 9px; font-weight: bold; }
 .counter-digits {
-  font-family: "Courier New", monospace;
+  font-family: "Courier Prime", "Courier New", monospace;
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 2px;
@@ -380,7 +437,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 /* download buttons */
 .download-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 8px; }
 .download-btn {
-  font-family: Impact, sans-serif;
+  font-family: "Anton", Impact, sans-serif;
   font-size: 16px;
   color: #fff;
   background: linear-gradient(#0a0, #050);
@@ -392,7 +449,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 /* live price chart */
 .chart-panel { padding: 6px; }
 .chart-stats {
-  font-family: "Courier New", monospace;
+  font-family: "Courier Prime", "Courier New", monospace;
   font-size: 12px;
   color: #0f0;
   background: #000;
@@ -417,7 +474,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 
 /* testimonial live feed */
 .feed-status {
-  font-family: "Courier New", monospace;
+  font-family: "Courier Prime", "Courier New", monospace;
   font-size: 10px;
   color: #060;
   margin-bottom: 4px;
@@ -425,7 +482,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 .feed-status .blink { color: #f00; }
 #testimonial-feed { overflow: hidden; }
 .testimonial {
-  font-family: "Comic Sans MS", cursive;
+  font-family: "Comic Neue", "Comic Sans MS", cursive;
   font-size: 13px;
   margin: 0 0 2px;
   padding: 5px 8px;
@@ -464,7 +521,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 /* under construction */
 .construction-bar {
   text-align: center;
-  font-family: Impact, sans-serif;
+  font-family: "Anton", Impact, sans-serif;
   font-size: clamp(12px, 3.5vw, 18px);
   color: #000;
   background: repeating-linear-gradient(45deg, #ff0 0 20px, #000 20px 40px);
@@ -500,7 +557,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   flex-direction: column;
   justify-content: center;
   line-height: 1.1;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
 }
 
 .pixel-art {
@@ -517,14 +574,14 @@ footer {
   margin: 10px;
   color: #000;
   font-size: 11px;
-  font-family: "Times New Roman", serif;
+  font-family: "Tinos", "Times New Roman", serif;
 }
 .footer-note {
   text-align: center;
   font-size: 9px;
   color: #555;
   padding: 2px;
-  font-family: "Courier New", monospace;
+  font-family: "Courier Prime", "Courier New", monospace;
 }
 
 /* close all */
@@ -554,7 +611,7 @@ footer {
   box-shadow: 6px 6px 0 rgba(0,0,0,.6);
   pointer-events: auto;
   color: #000;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
   font-size: 12px;
 }
 .win95-popup .win-titlebar { cursor: move; }
@@ -566,7 +623,7 @@ footer {
 .popup-body input[type="text"],
 .popup-body input[type="password"] {
   width: 100%;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
   font-size: 12px;
   border: 2px inset #808080;
   padding: 2px 4px;

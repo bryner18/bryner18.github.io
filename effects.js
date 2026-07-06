@@ -116,7 +116,7 @@ const Effects = (() => {
     ctx.fillStyle = "rgba(0,0,0,0.1)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#0f0";
-    ctx.font = "14px monospace";
+    ctx.font = "14px 'Courier Prime', monospace";
     for (let i = 0; i < cols; i++) {
       ctx.fillText(CHARS[rand(CHARS.length)], i * 18, drops[i] * 18);
       drops[i] = drops[i] * 18 > canvas.height && Math.random() > 0.975 ? 0 : drops[i] + 1;
