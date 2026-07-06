@@ -21,7 +21,7 @@ html, body {
 .times  { font-family: "Times New Roman", serif; }
 pre, .lcd, .ascii-chart, .matrix-text { font-family: "Courier New", monospace; }
 
-.big-text  { font-size: 22px; }
+.big-text  { font-size: clamp(15px, 4vw, 22px); }
 .tiny-text { font-size: 10px; }
 .center    { text-align: center; }
 
@@ -221,7 +221,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   padding: 2px 0;
   font-family: "Courier New", monospace;
   font-weight: bold;
-  font-size: 14px;
+  font-size: clamp(11px, 3vw, 14px);
   color: #0f0;
   background: #000;
   border-color: #0f0 #050 #050 #0f0;
@@ -237,7 +237,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 #main-header { text-align: center; padding: 6px 0 0; }
 
 .header-flames {
-  font-size: 20px;
+  font-size: clamp(13px, 4vw, 20px);
   letter-spacing: -4px;
   white-space: nowrap;
   overflow: hidden;
@@ -250,10 +250,12 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: clamp(6px, 2.5vw, 20px);
+  padding: 0 4px;
 }
+.header-center { min-width: 0; }
 
-#site-logo { margin: 0; font-size: clamp(28px, 6vw, 64px); cursor: pointer; }
+#site-logo { margin: 0; font-size: clamp(22px, 6vw, 64px); cursor: pointer; overflow-wrap: break-word; }
 
 .welcome-flash {
   font-family: Impact, sans-serif;
@@ -262,7 +264,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   text-shadow: 2px 2px 0 red, 0 0 20px #ff0;
 }
 
-.subtitle { font-size: 14px; color: #0ff; text-shadow: 1px 1px 0 #000; }
+.subtitle { font-size: clamp(11px, 3vw, 14px); color: #0ff; text-shadow: 1px 1px 0 #000; padding: 0 6px; }
 .parody-note { font-size: 10px; color: #aaa; font-family: "Courier New", monospace; }
 
 .header-marquee {
@@ -281,7 +283,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   text-shadow: 0 0 10px gold;
 }
 .spin-coin.delay { animation-delay: .6s; }
-.big-coin { font-size: 56px; }
+.big-coin { font-size: clamp(26px, 7vw, 56px); flex-shrink: 0; }
 @keyframes coin-spin { to { transform: rotateY(360deg); } }
 
 /* ============================================================
@@ -289,17 +291,40 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
    ============================================================ */
 #layout {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
+  grid-template-columns: minmax(160px, 200px) minmax(0, 1fr) minmax(160px, 200px);
   gap: 10px;
   padding: 10px;
   max-width: 1100px;
   margin: 0 auto;
 }
-@media (max-width: 800px) {
-  #layout { grid-template-columns: 1fr; }
-}
+#content, .sidebar, .panel { min-width: 0; }   /* grid/flex children may always shrink */
 
 .sidebar { display: flex; flex-direction: column; gap: 10px; }
+
+/* tablet (768–1200px): main content full-width on top, sidebars split into 2 columns */
+@media (max-width: 1200px) {
+  #layout { grid-template-columns: 1fr 1fr; }
+  #content { grid-column: 1 / -1; order: -1; }
+}
+
+/* mobile (<768px): flatten sidebars so every panel stacks in one deliberate order.
+   Must come after the base .sidebar rule so display:contents wins. */
+@media (max-width: 767px) {
+  #layout { display: flex; flex-direction: column; gap: 8px; padding: 8px; }
+  .sidebar, #content { display: contents; }
+  .sec-welcome      { order: 1; }   /* main announcement */
+  .sec-services     { order: 2; }   /* navigation */
+  .sec-stats        { order: 3; }   /* statistics */
+  .sec-chart        { order: 4; }   /* price chart */
+  .sec-testimonials { order: 5; }
+  .sec-radio        { order: 6; }
+  .sec-globe        { order: 7; }
+  .sec-ads          { order: 8; }
+  .sec-badges       { order: 9; }
+  .sec-hq           { order: 10; }
+  .sec-dance        { order: 11; }
+  .sec-construction { order: 12; }
+}
 
 .panel { color: #000; }
 .panel-title {
@@ -344,7 +369,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 /* globe */
 .globe-box { text-align: center; cursor: pointer; }
 .globe {
-  font-size: 64px;
+  font-size: clamp(44px, 12vw, 64px);
   display: inline-block;
   animation: globe-spin 4s linear infinite;
   filter: drop-shadow(0 0 12px #0af);
@@ -374,13 +399,11 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   border: 2px inset #808080;
   padding: 4px 8px;
   margin-bottom: 4px;
-  white-space: nowrap;
-  overflow-x: auto;
 }
 .chart-wrap {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: clamp(200px, 50vw, 300px);
   border: 2px inset #808080;
   background: #000;
 }
@@ -427,7 +450,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
-  font-size: 48px;
+  font-size: clamp(30px, 9vw, 48px);
 }
 .dancing-baby { animation: baby-dance .6s ease-in-out infinite alternate; display: inline-block; }
 .dancing-baby.d2 { animation-delay: .15s; }
@@ -442,7 +465,7 @@ body.glitching { animation: body-glitch .35s steps(4) 1; }
 .construction-bar {
   text-align: center;
   font-family: Impact, sans-serif;
-  font-size: 18px;
+  font-size: clamp(12px, 3.5vw, 18px);
   color: #000;
   background: repeating-linear-gradient(45deg, #ff0 0 20px, #000 20px 40px);
   background-size: 200% 100%;
@@ -512,6 +535,7 @@ footer {
   z-index: 10000;
   font-weight: bold;
   box-shadow: 0 0 10px #f00;
+  max-width: calc(100vw - 20px);
 }
 
 /* ============================================================
@@ -521,8 +545,9 @@ footer {
 
 .win95-popup {
   position: absolute;
-  min-width: 260px;
-  max-width: 340px;
+  width: min(340px, calc(100vw - 20px));   /* scales with viewport, never clipped */
+  min-width: 0;
+  max-width: calc(100vw - 20px);
   background: #c0c0c0;
   border: 2px solid;
   border-color: #fff #404040 #404040 #fff;
@@ -655,6 +680,41 @@ footer {
 @keyframes boom-pop {
   0%   { transform: scale(.2); opacity: 1; }
   100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ============================================================
+   RESPONSIVE POLISH
+   ============================================================ */
+
+/* comfortable tap targets on touch devices, same Win95 look */
+@media (pointer: coarse) {
+  .win95-btn { min-height: 34px; }
+  .tb-btn { width: 22px; height: 20px; line-height: 18px; font-size: 12px; }
+  .opt-row { padding: 4px 0; }
+}
+
+/* large phones (390–430px) and down */
+@media (max-width: 430px) {
+  .panel-body { padding: 6px; }
+  .header-marquee { font-size: 12px; }
+  .download-btn { font-size: 14px; padding: 8px 10px; }
+  .testimonial { font-size: 12px; }
+  .stat-line { font-size: 12px; }
+  .ad-banner .big-text { font-size: 18px; }
+  footer { margin: 8px; }
+  #close-all-btn { font-size: 11px; padding: 6px 8px; }
+  .popup-body { padding: 10px; }
+  .popup-icon { font-size: 26px; }
+}
+
+/* small phones (320–360px) */
+@media (max-width: 360px) {
+  .counter-digits { font-size: 15px; letter-spacing: 1px; }
+  .win-titlebar { font-size: 11px; }
+  .panel-title { font-size: 10px; }
+  .header-marquee { font-size: 11px; }
+  .badge-wall { gap: 3px; padding: 4px; }
+  .chart-stats { font-size: 11px; }
 }
 
 /* reduced motion: calm (almost) everything */

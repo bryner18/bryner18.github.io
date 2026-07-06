@@ -543,6 +543,17 @@ const Popups = (() => {
     setTimeout(ambient, 9000 + rand(12000));
   }
 
+  /* keep every open popup fully on-screen after resize/rotation */
+  addEventListener("resize", () => {
+    layer.querySelectorAll(".win95-popup").forEach((el) => {
+      const pad = 8;
+      const maxX = Math.max(pad, innerWidth - el.offsetWidth - pad);
+      const maxY = Math.max(pad, innerHeight - el.offsetHeight - pad);
+      el.style.left = Math.min(Math.max(el.offsetLeft, pad), maxX) + "px";
+      el.style.top = Math.min(Math.max(el.offsetTop, pad), maxY) + "px";
+    });
+  });
+
   /* ---------- wiring ---------- */
   document.getElementById("close-all-btn").addEventListener("click", closeAll);
   addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
